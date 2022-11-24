@@ -2,6 +2,7 @@ package com.example.demo;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Rectangle;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -21,8 +23,10 @@ public class Main extends Application {
     static final int WIDTH = 600;
     static final int HEIGHT = 600;
     private Group gameRoot = new Group();
-    private Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, Color.rgb(189, 177, 92));
-    private static Scanner input= new Scanner(System.in);
+    private Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, Color.rgb(255, 255, 255));
+    private static Scanner input = new Scanner(System.in);
+    private AnchorPane mainMenu;
+    private Stage primaryStage;
 
     public void setGameScene(Scene gameScene) {
         this.gameScene = gameScene;
@@ -34,6 +38,23 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("2048");
+
+        showMainMenu();
+    }
+
+    // Method to display Main Menu
+    private void showMainMenu() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("MainMenu.fxml"));
+        mainMenu = loader.load();
+        Scene menu = new Scene(mainMenu);
+        primaryStage.setScene(menu);
+        primaryStage.show();
+    }
+
+    private void startGame() throws Exception{
 
         Group menuRoot = new Group();
         Scene menuScene = new Scene(menuRoot, WIDTH, HEIGHT);
@@ -61,7 +82,7 @@ public class Main extends Application {
 
         Group gameRoot = new Group();
         setGameRoot(gameRoot);
-        Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, Color.rgb(189, 177, 92));
+        Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, Color.rgb(255, 255, 255));
         setGameScene(gameScene);
         primaryStage.setScene(gameScene);
         GameScene game = new GameScene();
