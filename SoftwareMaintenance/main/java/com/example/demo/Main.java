@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 //import javafx.scene.control.*;
 //import javafx.scene.control.ButtonType;
 //import javafx.scene.input.MouseEvent;
-import javafx.scene.control.Control;
+//import javafx.scene.control.Control;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -82,7 +82,7 @@ public class Main extends Application {
 
         Group gameRoot = new Group();
         setGameRoot(gameRoot);
-        Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, Color.rgb(255, 255, 255));
+        Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, Color.rgb(64, 64, 64));
         setGameScene(gameScene);
         primaryStage.setScene(gameScene);
         GameScene game = new GameScene();

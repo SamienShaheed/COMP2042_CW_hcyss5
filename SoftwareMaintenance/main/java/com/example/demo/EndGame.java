@@ -13,7 +13,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.Optional;
-
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class EndGame {
     private static EndGame singleInstance = null;
@@ -38,12 +40,23 @@ public class EndGame {
         scoreText.relocate(250,600);
         scoreText.setFont(Font.font(80));
         root.getChildren().add(scoreText);
+        
+
+        try {
+            FileWriter leaderBoardUpdate = new FileWriter("Leaderboard.txt", true); 
+            leaderBoardUpdate.append(Long.toString(score)).append("\n");
+            leaderBoardUpdate.close();
+        } catch (IOException fileErr) {
+            System.out.println("Could not update LeaderBoard");
+            fileErr.printStackTrace();
+        }
+
 
         Button quitButton = new Button("QUIT");
         quitButton.setPrefSize(100,30);
         quitButton.setTextFill(Color.PINK);
         root.getChildren().add(quitButton);
-        quitButton.relocate(100,800);
+        quitButton.relocate(250,650);
         quitButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -58,8 +71,5 @@ public class EndGame {
                 }
             }
         });
-
-
-
     }
 }

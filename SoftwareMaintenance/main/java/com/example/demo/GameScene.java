@@ -56,8 +56,6 @@ class GameScene {
             }
         }
 
-
-
         Text text;
         Random random = new Random();
         boolean putTwo = true;
@@ -263,7 +261,6 @@ class GameScene {
                 cells[i][j] = new Cell((j) * LENGTH + (j + 1) * distanceBetweenCells,
                         (i) * LENGTH + (i + 1) * distanceBetweenCells, LENGTH, root);
             }
-
         }
 
         Text text = new Text();
@@ -285,14 +282,17 @@ class GameScene {
                     int haveEmptyCell;
                     if (key.getCode() == KeyCode.DOWN) {
                         GameScene.this.moveDown();
+                        GameScene.this.sumCellNumbersToScore();
                     } else if (key.getCode() == KeyCode.UP) {
                         GameScene.this.moveUp();
+                        GameScene.this.sumCellNumbersToScore();
                     } else if (key.getCode() == KeyCode.LEFT) {
                         GameScene.this.moveLeft();
+                        GameScene.this.sumCellNumbersToScore();
                     } else if (key.getCode() == KeyCode.RIGHT) {
                         GameScene.this.moveRight();
+                        GameScene.this.sumCellNumbersToScore();
                     }
-                    GameScene.this.sumCellNumbersToScore();
                     scoreText.setText(score + "");
                     haveEmptyCell = GameScene.this.haveEmptyCell();
                     if (haveEmptyCell == -1) {
