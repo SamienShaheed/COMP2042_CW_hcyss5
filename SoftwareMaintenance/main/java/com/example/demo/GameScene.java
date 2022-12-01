@@ -20,6 +20,7 @@ class GameScene {
     private Cell[][] cells = new Cell[n][n];
     private Group root;
     private long score = 0;
+    private boolean validKeyPressed = false; // boolean to check if a valid key is pressed
 
     static void setN(int number) {
         n = number;
@@ -225,7 +226,7 @@ class GameScene {
         }
     }
 
-    private boolean haveSameNumberNearly(int i, int j) {
+    private boolean haveSameNumber(int i, int j) { // Changed method name from haveSameNumberNearly to haveSameNumber
         if (i < n - 1 && j < n - 1) {
             if (cells[i + 1][j].getNumber() == cells[i][j].getNumber())
                 return true;
@@ -238,7 +239,7 @@ class GameScene {
     private boolean canNotMove() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (haveSameNumberNearly(i, j)) {
+                if (haveSameNumber(i, j)) {
                     return false;
                 }
             }
@@ -282,18 +283,23 @@ class GameScene {
                     int haveEmptyCell;
                     if (key.getCode() == KeyCode.DOWN) {
                         GameScene.this.moveDown();
-                        GameScene.this.sumCellNumbersToScore();
+                        validKeyPressed = true; // if any arrow key is pressed, update boolean to true
                     } else if (key.getCode() == KeyCode.UP) {
                         GameScene.this.moveUp();
-                        GameScene.this.sumCellNumbersToScore();
+                        validKeyPressed = true; // if any arrow key is pressed, update boolean to true
                     } else if (key.getCode() == KeyCode.LEFT) {
                         GameScene.this.moveLeft();
-                        GameScene.this.sumCellNumbersToScore();
+                        validKeyPressed = true; // if any arrow key is pressed, update boolean to true
                     } else if (key.getCode() == KeyCode.RIGHT) {
                         GameScene.this.moveRight();
-                        GameScene.this.sumCellNumbersToScore();
+                        validKeyPressed = true; // if any arrow key is pressed, update boolean to true
                     }
                     scoreText.setText(score + "");
+                    
+                    if(validKeyPressed) { // if arrow keys are pressed, update score 
+                        GameScene.this.sumCellNumbersToScore();
+                    }
+                    
                     haveEmptyCell = GameScene.this.haveEmptyCell();
                     if (haveEmptyCell == -1) {
                         if (GameScene.this.canNotMove()) {
@@ -303,7 +309,7 @@ class GameScene {
                             root.getChildren().clear();
                             score = 0;
                         }
-                    } else if(haveEmptyCell == 1)
+                    } else if(haveEmptyCell == 1 && validKeyPressed) // Only add a new tile if a valid input is pressed
                         GameScene.this.randomFillNumber(2);
                 });
             });

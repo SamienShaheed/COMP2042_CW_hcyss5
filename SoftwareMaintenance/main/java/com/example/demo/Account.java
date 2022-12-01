@@ -36,14 +36,13 @@ public class Account implements Comparable<Account> {
         return userName;
     }
 
-    static Account accountHaveBeenExist(String userName){
+    static Account accountExists(String userName){ // Changed method name from accountHaveBeenExist to accountExists
         for(Account account : accounts){
             if(account.getUserName().equals(userName)){
                 return account;
             }
         }
         return null;
-
     }
 
     static Account makeNewAccount(String userName){
@@ -51,5 +50,4 @@ public class Account implements Comparable<Account> {
         accounts.add(account);
         return account;
     }
-
 }

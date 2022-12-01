@@ -41,12 +41,12 @@ public class EndGame {
         scoreText.setFont(Font.font(80));
         root.getChildren().add(scoreText);
         
-
+        // Try Catch Block to store highscores in a Txt File
         try {
-            FileWriter leaderBoardUpdate = new FileWriter("Leaderboard.txt", true); 
-            leaderBoardUpdate.append(Long.toString(score)).append("\n");
+            FileWriter leaderBoardUpdate = new FileWriter("Leaderboard.txt", true); // Create leaderBoardUpdate object 
+            leaderBoardUpdate.append(Long.toString(score)).append("\n"); // append the current instance's score to the txt file
             leaderBoardUpdate.close();
-        } catch (IOException fileErr) {
+        } catch (IOException fileErr) { // Catch any errors found
             System.out.println("Could not update LeaderBoard");
             fileErr.printStackTrace();
         }
@@ -54,7 +54,7 @@ public class EndGame {
 
         Button quitButton = new Button("QUIT");
         quitButton.setPrefSize(100,30);
-        quitButton.setTextFill(Color.PINK);
+        quitButton.setTextFill(Color.BLACK);
         root.getChildren().add(quitButton);
         quitButton.relocate(250,650);
         quitButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
