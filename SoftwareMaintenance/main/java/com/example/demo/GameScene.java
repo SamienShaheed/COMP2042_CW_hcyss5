@@ -12,15 +12,14 @@ import javafx.stage.Stage;
 import java.util.Random;
 
 class GameScene {
-    private static int HEIGHT = 600;
+    private static final int HEIGHT = 600;
     private static int n = 4;
     private final static int distanceBetweenCells = 10;
     private static double LENGTH = (HEIGHT - ((n + 1) * distanceBetweenCells)) / (double) n;
-    private TextMaker textMaker = TextMaker.getSingleInstance();
-    private Cell[][] cells = new Cell[n][n];
+    private final TextMaker textMaker = TextMaker.getSingleInstance();
+    private final Cell[][] cells = new Cell[n][n];
     private Group root;
     private long score = 0;
-    private boolean validKeyPressed = false; // boolean to check if a valid key is pressed
 
     static void setN(int number) {
         n = number;
@@ -59,9 +58,7 @@ class GameScene {
 
         Text text;
         Random random = new Random();
-        boolean putTwo = true;
-        if (random.nextInt() % 2 == 0)
-            putTwo = false;
+        boolean putTwo = random.nextInt() % 2 != 0; // Simplified if command to set putTwo boolean value
         int xCell, yCell;
             xCell = random.nextInt(aForBound+1);
             yCell = random.nextInt(bForBound+1);
@@ -103,7 +100,7 @@ class GameScene {
             }
             return coordinate;
         }
-        coordinate = j;
+        // removed redundant coordinate assignment
         if (direct == 'r') {
             for (int k = j + 1; k <= n - 1; k++) {
                 if (cells[i][k].getNumber() != 0) {
@@ -128,7 +125,7 @@ class GameScene {
             }
             return coordinate;
         }
-        coordinate = i;
+        // removed redundant coordinate assignment
         if (direct == 'u') {
             for (int k = i - 1; k >= 0; k--) {
                 if (cells[k][j].getNumber() != 0) {
@@ -173,7 +170,7 @@ class GameScene {
             for (int i = 0; i < n; i++) {
                 cells[i][j].setModify(false);
             }
-        }
+        } 
 
     }
 
@@ -188,7 +185,7 @@ class GameScene {
         }
 
     }
-
+    
     private boolean isValidDesH(int i, int j, int des, int sign) {
         if (des + sign < n && des + sign >= 0) {
             if (cells[i][des + sign].getNumber() == cells[i][j].getNumber() && !cells[i][des + sign].getModify()
@@ -203,6 +200,7 @@ class GameScene {
         if (isValidDesH(i, j, des, sign)) {
             cells[i][j].adder(cells[i][des + sign]);
             cells[i][des].setModify(true);
+            GameScene.this.sumCellNumbersToScore(i, des + sign);
         } else if (des != j) {
             cells[i][j].changeCell(cells[i][des]);
         }
@@ -221,6 +219,7 @@ class GameScene {
         if (isValidDesV(i, j, des, sign)) {
             cells[i][j].adder(cells[des + sign][j]);
             cells[des][j].setModify(true);
+            GameScene.this.sumCellNumbersToScore(des + sign, j);
         } else if (des != i) {
             cells[i][j].changeCell(cells[des][j]);
         }
@@ -247,12 +246,15 @@ class GameScene {
         return true;
     }
 
-    private void sumCellNumbersToScore() {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                score += cells[i][j].getNumber();
+    private void sumCellNumbersToScore(int i, int j) {
+        score += cells[i][j].getNumber();
+        for (int k = 0; k < n; k++) {
+            for (int l = 0; l < n; l++) {
+                System.out.print(cells[k][l].getNumber() + " ");
             }
+            System.out.print("\n");
         }
+        System.out.print("\n");
     }
 
     void game(Scene gameScene, Group root, Stage primaryStage, Scene endGameScene, Group endGameRoot) {
@@ -283,34 +285,28 @@ class GameScene {
                     int haveEmptyCell;
                     if (key.getCode() == KeyCode.DOWN) {
                         GameScene.this.moveDown();
-                        validKeyPressed = true; // if any arrow key is pressed, update boolean to true
                     } else if (key.getCode() == KeyCode.UP) {
                         GameScene.this.moveUp();
-                        validKeyPressed = true; // if any arrow key is pressed, update boolean to true
                     } else if (key.getCode() == KeyCode.LEFT) {
                         GameScene.this.moveLeft();
-                        validKeyPressed = true; // if any arrow key is pressed, update boolean to true
                     } else if (key.getCode() == KeyCode.RIGHT) {
                         GameScene.this.moveRight();
-                        validKeyPressed = true; // if any arrow key is pressed, update boolean to true
+                    } else {
+                        throw new RuntimeException("Invalid Input"); // Throw an exception if any other key is pressed
                     }
+                    
                     scoreText.setText(score + "");
-                    
-                    if(validKeyPressed) { // if arrow keys are pressed, update score 
-                        GameScene.this.sumCellNumbersToScore();
-                    }
-                    
                     haveEmptyCell = GameScene.this.haveEmptyCell();
                     if (haveEmptyCell == -1) {
                         if (GameScene.this.canNotMove()) {
                             primaryStage.setScene(endGameScene);
-
+                            
                             EndGame.getInstance().endGameShow(endGameScene, endGameRoot, primaryStage, score);
                             root.getChildren().clear();
                             score = 0;
                         }
-                    } else if(haveEmptyCell == 1 && validKeyPressed) // Only add a new tile if a valid input is pressed
-                        GameScene.this.randomFillNumber(2);
+                    } else if(haveEmptyCell == 1) // Only add a new tile if a valid input is pressed
+                    GameScene.this.randomFillNumber(2);
                 });
             });
     }

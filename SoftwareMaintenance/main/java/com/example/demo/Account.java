@@ -28,11 +28,11 @@ public class Account implements Comparable<Account> {
         this.score += score;
     }
 
-    private long getScore() {
+    public long getScore() { // Changed method from private to public
         return score;
     }
 
-    private String getUserName() {
+    public String getUserName() { // Changed method from private to public
         return userName;
     }
 

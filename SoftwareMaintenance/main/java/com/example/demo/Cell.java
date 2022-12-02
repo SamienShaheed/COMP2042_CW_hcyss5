@@ -74,7 +74,6 @@ public class Cell {
             case 1024 -> rectangle.setFill(Color.rgb(250, 0, 44, 0.8));
             case 2048 -> rectangle.setFill(Color.rgb(250, 0, 0, 1));
         }
-
     }
 
     double getX() {
