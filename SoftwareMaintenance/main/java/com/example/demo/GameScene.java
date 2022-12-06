@@ -200,7 +200,7 @@ class GameScene {
         if (isValidDesH(i, j, des, sign)) {
             cells[i][j].adder(cells[i][des + sign]);
             cells[i][des].setModify(true);
-            GameScene.this.sumCellNumbersToScore(i, des + sign);
+            GameScene.this.addToScore(i, des + sign); // Call method to add to score
         } else if (des != j) {
             cells[i][j].changeCell(cells[i][des]);
         }
@@ -219,7 +219,7 @@ class GameScene {
         if (isValidDesV(i, j, des, sign)) {
             cells[i][j].adder(cells[des + sign][j]);
             cells[des][j].setModify(true);
-            GameScene.this.sumCellNumbersToScore(des + sign, j);
+            GameScene.this.addToScore(des + sign, j); // Call method to add to score
         } else if (des != i) {
             cells[i][j].changeCell(cells[des][j]);
         }
@@ -246,15 +246,9 @@ class GameScene {
         return true;
     }
 
-    private void sumCellNumbersToScore(int i, int j) {
-        score += cells[i][j].getNumber();
-        for (int k = 0; k < n; k++) {
-            for (int l = 0; l < n; l++) {
-                System.out.print(cells[k][l].getNumber() + " ");
-            }
-            System.out.print("\n");
-        }
-        System.out.print("\n");
+    // Changed method name from sumCellNumbersToScore to addToScore
+    private void addToScore(int i, int j) { // Take in the coordinates of a cell as parameter
+        score += cells[i][j].getNumber(); // Add the value of the cell at given coordinate to score
     }
 
     void game(Scene gameScene, Group root, Stage primaryStage, Scene endGameScene, Group endGameRoot) {
@@ -305,7 +299,7 @@ class GameScene {
                             root.getChildren().clear();
                             score = 0;
                         }
-                    } else if(haveEmptyCell == 1) // Only add a new tile if a valid input is pressed
+                    } else if(haveEmptyCell == 1)
                     GameScene.this.randomFillNumber(2);
                 });
             });

@@ -36,9 +36,7 @@ public class Main extends Application {
 
     // Method to start game
     public void startGame(Stage primaryStage) {
-
-        Group menuRoot = new Group();
-        Group accountRoot = new Group();
+        
         Group endgameRoot = new Group();
         Scene endGameScene = new Scene(endgameRoot, WIDTH, HEIGHT, Color.rgb(250, 20, 100, 0.2));
         
