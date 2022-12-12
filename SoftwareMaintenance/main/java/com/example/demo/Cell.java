@@ -61,18 +61,18 @@ public class Cell {
 
     void setColorByNumber(int number) {
         switch (number) {
-            case 0 -> rectangle.setFill(Color.rgb(224, 226, 226, 0.5));
+            case 0 -> rectangle.setFill(Color.rgb(204, 192, 179, 0.5));
             case 2 -> rectangle.setFill(Color.rgb(232, 255, 100, 0.5));
             case 4 -> rectangle.setFill(Color.rgb(232, 220, 50, 0.5));
-            case 8 -> rectangle.setFill(Color.rgb(232, 200, 44, 0.8));
-            case 16 -> rectangle.setFill(Color.rgb(232, 170, 44, 0.8));
-            case 32 -> rectangle.setFill(Color.rgb(180, 120, 44, 0.7));
-            case 64 -> rectangle.setFill(Color.rgb(180, 100, 44, 0.7));
-            case 128 -> rectangle.setFill(Color.rgb(180, 80, 44, 0.7));
-            case 256 -> rectangle.setFill(Color.rgb(180, 60, 44, 0.8));
-            case 512 -> rectangle.setFill(Color.rgb(180, 30, 44, 0.8));
-            case 1024 -> rectangle.setFill(Color.rgb(250, 0, 44, 0.8));
-            case 2048 -> rectangle.setFill(Color.rgb(250, 0, 0, 1));
+            case 8 -> rectangle.setFill(Color.rgb(242, 177, 121));
+            case 16 -> rectangle.setFill(Color.rgb(245, 149, 99));
+            case 32 -> rectangle.setFill(Color.rgb(246, 124, 95));
+            case 64 -> rectangle.setFill(Color.rgb(246, 94, 59));
+            case 128 -> rectangle.setFill(Color.rgb(237, 207, 114));
+            case 256 -> rectangle.setFill(Color.rgb(237, 204, 97));
+            case 512 -> rectangle.setFill(Color.rgb(237, 200, 80));
+            case 1024 -> rectangle.setFill(Color.rgb(237, 197, 63));
+            case 2048 -> rectangle.setFill(Color.rgb(237, 194, 46));
         }
     }
 

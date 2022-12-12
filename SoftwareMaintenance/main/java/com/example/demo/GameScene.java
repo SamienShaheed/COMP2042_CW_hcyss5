@@ -11,26 +11,29 @@ import javafx.stage.Stage;
 
 import java.util.Random;
 
-class GameScene {
-    private static final int HEIGHT = 600;
-    private static int n = 4;
+class GameScene extends Main{
+    
+    private static final int gridSize = 600;
     private final static int distanceBetweenCells = 10;
-    private static double LENGTH = (HEIGHT - ((n + 1) * distanceBetweenCells)) / (double) n;
     private final TextMaker textMaker = TextMaker.getSingleInstance();
     private final Cell[][] cells = new Cell[n][n];
-    private Group root;
-    private long score = 0;
 
+    private long score = 0;
+    private static int n = 4;
+    private static double LENGTH = (gridSize - ((n + 1) * distanceBetweenCells)) / (double) n;
+    
+    private Group root;
+    
     static void setN(int number) {
         n = number;
-        LENGTH = (HEIGHT - ((n + 1) * distanceBetweenCells)) / (double) n;
+        LENGTH = (gridSize - ((n + 1) * distanceBetweenCells)) / (double) n;
     }
 
     static double getLENGTH() {
         return LENGTH;
     }
 
-    private void randomFillNumber(int turn) {
+    private void randomFillNumber() { // Removed unused int turn parameter
 
         Cell[][] emptyCells = new Cell[n][n];
         int a = 0;
@@ -75,6 +78,7 @@ class GameScene {
         }
     }
 
+    // Check if empty cells exist on the grid
     private int  haveEmptyCell() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -88,54 +92,57 @@ class GameScene {
     }
 
     private int passDestination(int i, int j, char direct) {
-        int coordinate = j;
-        if (direct == 'l') {
-            for (int k = j - 1; k >= 0; k--) {
-                if (cells[i][k].getNumber() != 0) {
-                    coordinate = k + 1;
-                    break;
-                } else if (k == 0) {
-                    coordinate = 0;
-                }
-            }
-            return coordinate;
-        }
-        // removed redundant coordinate assignment
-        if (direct == 'r') {
-            for (int k = j + 1; k <= n - 1; k++) {
-                if (cells[i][k].getNumber() != 0) {
-                    coordinate = k - 1;
-                    break;
-                } else if (k == n - 1) {
-                    coordinate = n - 1;
-                }
-            }
-            return coordinate;
-        }
-        coordinate = i;
-        if (direct == 'd') {
-            for (int k = i + 1; k <= n - 1; k++) {
-                if (cells[k][j].getNumber() != 0) {
-                    coordinate = k - 1;
-                    break;
+        int coordinate;
 
-                } else if (k == n - 1) {
-                    coordinate = n - 1;
+        switch (direct) { // Converted if else to switch case statement
+            case 'l' -> {
+                coordinate = j;
+                for (int k = j - 1; k >= 0; k--) {
+                    if (cells[i][k].getNumber() != 0) {
+                        return k + 1;
+                    } else if (k == 0) {
+                        coordinate = 0;
+                    }
                 }
+                return coordinate;
             }
-            return coordinate;
-        }
-        // removed redundant coordinate assignment
-        if (direct == 'u') {
-            for (int k = i - 1; k >= 0; k--) {
-                if (cells[k][j].getNumber() != 0) {
-                    coordinate = k + 1;
-                    break;
-                } else if (k == 0) {
-                    coordinate = 0;
+
+            case 'r' -> {
+                coordinate = j;
+                for (int k = j + 1; k <= n - 1; k++) {
+                    if (cells[i][k].getNumber() != 0) {
+                        return k - 1; // Simplified code to return k - 1
+                    } else if (k == n - 1) {
+                        coordinate = n - 1;
+                    }
                 }
+                return coordinate;
             }
-            return coordinate;
+
+            case 'd' -> {
+                coordinate = i;
+                for (int k = i + 1; k <= n - 1; k++) {
+                    if (cells[k][j].getNumber() != 0) {
+                        return k - 1;
+
+                    } else if (k == n - 1) {
+                        coordinate = n - 1;
+                    }
+                }
+                return coordinate;
+            }
+
+            case 'u' -> {
+                coordinate = i;
+                for (int k = i - 1; k >= 0; k--) {
+                    if (cells[k][j].getNumber() != 0) {
+                        return k + 1;
+                    } else if (k == 0) {
+                        coordinate = 0;
+                    }
+                }
+                return coordinate;
+            }
         }
         return -1;
     }
@@ -171,7 +178,6 @@ class GameScene {
                 cells[i][j].setModify(false);
             }
         } 
-
     }
 
     private void moveDown() {
@@ -183,7 +189,6 @@ class GameScene {
                 cells[i][j].setModify(false);
             }
         }
-
     }
     
     private boolean isValidDesH(int i, int j, int des, int sign) {
@@ -208,10 +213,8 @@ class GameScene {
 
     private boolean isValidDesV(int i, int j, int des, int sign) {
         if (des + sign < n && des + sign >= 0)
-            if (cells[des + sign][j].getNumber() == cells[i][j].getNumber() && !cells[des + sign][j].getModify()
-                    && cells[des + sign][j].getNumber() != 0) {
-                return true;
-            }
+            return cells[des + sign][j].getNumber() == cells[i][j].getNumber() && !cells[des + sign][j].getModify()
+                    && cells[des + sign][j].getNumber() != 0;
         return false;
     }
 
@@ -226,15 +229,30 @@ class GameScene {
     }
 
     private boolean haveSameNumber(int i, int j) { // Changed method name from haveSameNumberNearly to haveSameNumber
-        if (i < n - 1 && j < n - 1) {
+        // Check if last cell
+        if (i == n - 1 && j == n - 1) { 
+            if (cells[i - 1][j].getNumber() == cells[i][j].getNumber())
+                return true;
+            else if (cells[i][j - 1].getNumber() == cells[i][j].getNumber())
+                return true;
+            else 
+                return false;
+        }
+    
+        if(i < n - 1 || j == n - 1) {
             if (cells[i + 1][j].getNumber() == cells[i][j].getNumber())
                 return true;
+        }
+
+        if(j < n - 1 || i == n - 1) {
             if (cells[i][j + 1].getNumber() == cells[i][j].getNumber())
                 return true;
         }
+
         return false;
     }
 
+    // Check if no more valid moves remaining
     private boolean canNotMove() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -251,7 +269,44 @@ class GameScene {
         score += cells[i][j].getNumber(); // Add the value of the cell at given coordinate to score
     }
 
+    // -------------------------------------DEBUG FUNCTION---------------------------------------
+    // ------------------------------------------------------------------------------------------
+    private void debug() { 
+
+        // Prints grid position onto console
+        for(int i=0 ; i < n ; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(cells[i][j].getNumber() + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+
+        // Prints coordinates of each cell
+        for(int i=0 ; i < n ; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print("(" + i + ",");
+                System.out.print(j + ") ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+
+        
+        // Prints whatever for each cell
+        // for(int i=0 ; i < n ; i++) {
+        //     for (int j = 0; j < n; j++) {
+        //         System.out.print(cells[i][j].getModify() + " ");
+        //     }
+        //     System.out.println();
+        // }
+        // System.out.println();
+    }
+    // ------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------
+
     void game(Scene gameScene, Group root, Stage primaryStage, Scene endGameScene, Group endGameRoot) {
+        // Generate grid on GUI
         this.root = root;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -260,48 +315,67 @@ class GameScene {
             }
         }
 
+        // Store width and height of screen
+        int screenWidth = getWidth();
+        int screenHeight = getHeight();
+
+        // Calculate position for score text
+        int xPosText = ((screenWidth - gridSize) / 3) + gridSize;
+        int xPosScore = ((screenWidth - gridSize) / 2) + gridSize;
+        int yPos = screenHeight / 3;
+
+        // Generate Score Text on GUI
         Text text = new Text();
         root.getChildren().add(text);
-        text.setText("SCORE :");
+        text.setText("SCORE");
         text.setFont(Font.font(30));
-        text.relocate(750, 100);
+        text.relocate(xPosText, yPos);
+
         Text scoreText = new Text();
         root.getChildren().add(scoreText);
-        scoreText.relocate(750, 150);
+        scoreText.relocate(xPosScore, yPos + 50);
         scoreText.setFont(Font.font(20));
         scoreText.setText("0");
 
-        randomFillNumber(1);
-        randomFillNumber(1);
+        // Add first 2 cells at the start of the game
+        randomFillNumber();
+        randomFillNumber();
 
+        // Run code when keys pressed
         gameScene.addEventHandler(KeyEvent.KEY_PRESSED, key ->{
-                Platform.runLater(() -> {
-                    int haveEmptyCell;
-                    if (key.getCode() == KeyCode.DOWN) {
-                        GameScene.this.moveDown();
-                    } else if (key.getCode() == KeyCode.UP) {
-                        GameScene.this.moveUp();
-                    } else if (key.getCode() == KeyCode.LEFT) {
-                        GameScene.this.moveLeft();
-                    } else if (key.getCode() == KeyCode.RIGHT) {
-                        GameScene.this.moveRight();
-                    } else {
-                        throw new RuntimeException("Invalid Input"); // Throw an exception if any other key is pressed
+            Platform.runLater(() -> {
+                                
+                int haveEmptyCell;
+                
+                if (key.getCode() == KeyCode.DOWN) {
+                    GameScene.this.moveDown();
+                } else if (key.getCode() == KeyCode.UP) {
+                    GameScene.this.moveUp();
+                } else if (key.getCode() == KeyCode.LEFT) {
+                    GameScene.this.moveLeft();
+                } else if (key.getCode() == KeyCode.RIGHT) {
+                    GameScene.this.moveRight();
+                } else {
+                    // Throw an exception if any other key is pressed
+                    throw new RuntimeException("Invalid Input"); 
+                }
+                
+                scoreText.setText(score + ""); // Update Score on GUI
+                
+                haveEmptyCell = GameScene.this.haveEmptyCell();
+                
+                if (haveEmptyCell == -1) { // If no empty cells on grid
+                    if (GameScene.this.canNotMove()) {
+                        primaryStage.setScene(endGameScene);
+                        
+                        EndGame.getInstance().endGameShow(endGameScene, endGameRoot, primaryStage, score);
+                        root.getChildren().clear();
+                        score = 0;
                     }
-                    
-                    scoreText.setText(score + "");
-                    haveEmptyCell = GameScene.this.haveEmptyCell();
-                    if (haveEmptyCell == -1) {
-                        if (GameScene.this.canNotMove()) {
-                            primaryStage.setScene(endGameScene);
-                            
-                            EndGame.getInstance().endGameShow(endGameScene, endGameRoot, primaryStage, score);
-                            root.getChildren().clear();
-                            score = 0;
-                        }
-                    } else if(haveEmptyCell == 1)
-                    GameScene.this.randomFillNumber(2);
-                });
+                } else if (haveEmptyCell == 1) {
+                    randomFillNumber();
+                }
             });
+        });
     }
 }

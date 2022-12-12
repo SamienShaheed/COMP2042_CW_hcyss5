@@ -9,12 +9,20 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Scanner;
 // Removed unused imports
+
 public class Main extends Application {
-    static final int WIDTH = 600;
+    static final int WIDTH = 900;
     static final int HEIGHT = 600;
     public Stage primaryStage;
+
+    public int getWidth() {
+        return WIDTH;
+    }
+    
+    public int getHeight() {
+        return HEIGHT;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -36,9 +44,9 @@ public class Main extends Application {
 
     // Method to start game
     public void startGame(Stage primaryStage) {
-        
+
         Group endgameRoot = new Group();
-        Scene endGameScene = new Scene(endgameRoot, WIDTH, HEIGHT, Color.rgb(250, 20, 100, 0.2));
+        Scene endGameScene = new Scene(endgameRoot, WIDTH, HEIGHT, Color.rgb(64, 64, 64));
         
 
         Group gameRoot = new Group();
