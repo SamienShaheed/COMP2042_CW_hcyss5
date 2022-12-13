@@ -9,6 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Random;
 
 class GameScene extends Main{
@@ -373,8 +374,8 @@ class GameScene extends Main{
                 if (haveEmptyCell == -1) { // If no empty cells on grid
                     if (GameScene.this.canNotMove()) {
                         primaryStage.setScene(endGameScene);
-                        
-                        EndGame.getInstance().endGameShow(endGameScene, endGameRoot, primaryStage, score);
+
+                        EndGame.getInstance().endGameShow(endGameRoot, primaryStage, score);
                         root.getChildren().clear();
                         score = 0;
                     }

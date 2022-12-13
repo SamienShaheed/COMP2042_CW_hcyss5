@@ -11,9 +11,6 @@ public class Controller extends Main {
     private int gridSize;
 
     @FXML
-    private ListView<String> leaderBoard;
-
-    @FXML
     public void classicGameMode(ActionEvent event) throws IOException { // Method to handle start button in Main Menu
         gridSize = 4;
         Stage currentStage = (Stage) ((Node)event.getSource()).getScene().getWindow(); // get the current stage

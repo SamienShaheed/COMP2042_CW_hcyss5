@@ -60,7 +60,6 @@ public class Cell {
         root.getChildren().remove(textClass);
         cell.setColorByNumber(cell.getNumber());
         setColorByNumber(getNumber());
-        System.out.println(cell.getNumber());
     }
 
     void setColorByNumber(int number) {
