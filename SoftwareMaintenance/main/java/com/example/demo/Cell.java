@@ -4,6 +4,7 @@ package com.example.demo;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class Cell {
@@ -27,7 +28,7 @@ public class Cell {
         rectangle.setHeight(scale);
         rectangle.setWidth(scale);
         this.root = root;
-        rectangle.setFill(Color.rgb(224, 226, 226, 0.5));
+        rectangle.setFill(Color.rgb(204, 192, 179, 0.5));
         this.textClass = TextMaker.getSingleInstance().madeText("0", x, y, root);
         root.getChildren().add(rectangle);
     }
@@ -40,6 +41,7 @@ public class Cell {
         TextMaker.changeTwoText(textClass, cell.getTextClass());
         root.getChildren().remove(cell.getTextClass());
         root.getChildren().remove(textClass);
+        setTextByNumber(cell);
 
         if (!cell.getTextClass().getText().equals("0")) {
             root.getChildren().add(cell.getTextClass());
@@ -53,17 +55,19 @@ public class Cell {
 
     void adder(Cell cell) {
         cell.getTextClass().setText((cell.getNumber() + this.getNumber()) + "");
+        setTextByNumber(cell);
         textClass.setText("0");
         root.getChildren().remove(textClass);
         cell.setColorByNumber(cell.getNumber());
         setColorByNumber(getNumber());
+        System.out.println(cell.getNumber());
     }
 
     void setColorByNumber(int number) {
         switch (number) {
             case 0 -> rectangle.setFill(Color.rgb(204, 192, 179, 0.5));
-            case 2 -> rectangle.setFill(Color.rgb(232, 255, 100, 0.5));
-            case 4 -> rectangle.setFill(Color.rgb(232, 220, 50, 0.5));
+            case 2 -> rectangle.setFill(Color.rgb(238, 228, 218));
+            case 4 -> rectangle.setFill(Color.rgb(237, 224, 200));
             case 8 -> rectangle.setFill(Color.rgb(242, 177, 121));
             case 16 -> rectangle.setFill(Color.rgb(245, 149, 99));
             case 32 -> rectangle.setFill(Color.rgb(246, 124, 95));
@@ -74,6 +78,26 @@ public class Cell {
             case 1024 -> rectangle.setFill(Color.rgb(237, 197, 63));
             case 2048 -> rectangle.setFill(Color.rgb(237, 194, 46));
         }
+    }
+
+    void setTextByNumber(Cell cell) {
+        if(numberOfDigits(cell.getNumber()) > 2) {
+            cell.getTextClass().setFont(Font.font((3 * GameScene.getLENGTH()) / 9.0));
+        }
+
+        if(cell.getNumber() > 4) {
+            cell.getTextClass().setFill(Color.WHITE);
+        }
+    }
+
+    // Method that returns the number of digits of the cell's value
+    int numberOfDigits(int number) {
+        int count = 0;
+        while(number != 0) {
+            number /= 10;
+            ++count;
+        }
+        return count;
     }
 
     double getX() {

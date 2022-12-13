@@ -14,15 +14,38 @@
             <Font name="Rockwell Bold" size="75.0" />
          </font>
       </Text>
-      <Button layoutX="296.0" layoutY="396.0" mnemonicParsing="false" onAction="#handlestartbtn" text="Start Game" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="261.0" layoutY="171.0" pickOnBounds="true"
-                 preserveRatio="true">
-         <Image url="@images/2048.png"/>
+      <Button layoutX="68.0" layoutY="346.0" mnemonicParsing="false" onAction="#classicGameMode" text="Start Game" />
+      <ImageView fitHeight="123.0" fitWidth="124.0" layoutX="47.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/4x4.png" />
+         </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="311.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4 x 4">
+      <Text fill="WHITE" layoutX="56.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Classic - 4x4">
          <font>
-            <Font name="Rockwell" size="24.0" />
+            <Font name="Rockwell" size="18.0" />
          </font>
       </Text>
+      <ImageView fitHeight="123.0" fitWidth="124.0" layoutX="275.0" layoutY="171.0">
+         <image>
+            <Image url="@images/5x5.jpg" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="291.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Large - 5x5">
+         <font>
+            <Font name="Rockwell" size="18.0" />
+         </font>
+      </Text>
+      <Button layoutX="296.0" layoutY="346.0" mnemonicParsing="false" onAction="#largeGameMode" text="Start Game" />
+      <ImageView fitHeight="123.0" fitWidth="124.0" layoutX="497.0" layoutY="171.0">
+         <image>
+            <Image url="@images/6x6.jpeg" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="513.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wide - 6x6">
+         <font>
+            <Font name="Rockwell" size="18.0" />
+         </font>
+      </Text>
+      <Button layoutX="519.0" layoutY="346.0" mnemonicParsing="false" onAction="#wideGameMode" text="Start Game" />
    </children>
 </AnchorPane>

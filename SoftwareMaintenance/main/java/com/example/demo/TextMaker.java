@@ -8,10 +8,6 @@ import javafx.scene.text.Text;
 class TextMaker {
     private static TextMaker singleInstance = null;
 
-    private TextMaker() {
-
-    }
-
     static TextMaker getSingleInstance() {
         if (singleInstance == null)
             singleInstance = new TextMaker();
@@ -24,11 +20,11 @@ class TextMaker {
         Text text = new Text(input);
         text.setFont(Font.font(fontSize));
         text.relocate((xCell + (1.2)* length / 7.0), (yCell + 2 * length / 7.0));
-        text.setFill(Color.WHITE);
+        text.setFill(Color.rgb(119, 110, 101));
 
         return text;
     }
-
+    
     static void changeTwoText(Text first, Text second) {
         String temp;
         temp = first.getText();

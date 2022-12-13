@@ -13,20 +13,24 @@ import java.util.Random;
 
 class GameScene extends Main{
     
-    private static final int gridSize = 600;
+    private static final int gridLength = 600;
     private final static int distanceBetweenCells = 10;
     private final TextMaker textMaker = TextMaker.getSingleInstance();
     private final Cell[][] cells = new Cell[n][n];
 
     private long score = 0;
-    private static int n = 4;
-    private static double LENGTH = (gridSize - ((n + 1) * distanceBetweenCells)) / (double) n;
+    private static int n = 8;
+    private static double LENGTH;
     
     private Group root;
     
-    static void setN(int number) {
+    public static void setN(int number) {
         n = number;
-        LENGTH = (gridSize - ((n + 1) * distanceBetweenCells)) / (double) n;
+        LENGTH = (gridLength - ((n + 1) * distanceBetweenCells)) / (double) n;
+    }
+
+    public static int getN() {
+        return n;
     }
 
     static double getLENGTH() {
@@ -294,13 +298,13 @@ class GameScene extends Main{
 
         
         // Prints whatever for each cell
-        // for(int i=0 ; i < n ; i++) {
-        //     for (int j = 0; j < n; j++) {
-        //         System.out.print(cells[i][j].getModify() + " ");
-        //     }
-        //     System.out.println();
-        // }
-        // System.out.println();
+        for(int i=0 ; i < n ; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(n);
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
     // ------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------
@@ -315,13 +319,15 @@ class GameScene extends Main{
             }
         }
 
+        //debug();
+
         // Store width and height of screen
         int screenWidth = getWidth();
         int screenHeight = getHeight();
 
         // Calculate position for score text
-        int xPosText = ((screenWidth - gridSize) / 3) + gridSize;
-        int xPosScore = ((screenWidth - gridSize) / 2) + gridSize;
+        int xPosText = ((screenWidth - gridLength) / 3) + gridLength;
+        int xPosScore = ((screenWidth - gridLength) / 2) + gridLength;
         int yPos = screenHeight / 3;
 
         // Generate Score Text on GUI

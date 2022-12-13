@@ -16,10 +16,13 @@ public class Main extends Application {
     static final int HEIGHT = 600;
     public Stage primaryStage;
 
+    private static Color backgroundColor_Light = Color.rgb(238, 228, 218, 0.73);
+    private static Color backgroundColor_DARK = Color.rgb(64, 64, 64);
+
     public int getWidth() {
         return WIDTH;
     }
-    
+
     public int getHeight() {
         return HEIGHT;
     }
@@ -43,16 +46,16 @@ public class Main extends Application {
     }
 
     // Method to start game
-    public void startGame(Stage primaryStage) {
+    public void startGame(Stage primaryStage, int gridSize) {
 
         Group endgameRoot = new Group();
-        Scene endGameScene = new Scene(endgameRoot, WIDTH, HEIGHT, Color.rgb(64, 64, 64));
-        
+        Scene endGameScene = new Scene(endgameRoot, WIDTH, HEIGHT, backgroundColor_DARK);
 
         Group gameRoot = new Group();
-        Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, Color.rgb(64, 64, 64));
+        Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, backgroundColor_DARK);
         primaryStage.setScene(gameScene);
         GameScene game = new GameScene();
+        GameScene.setN(gridSize);
         game.game(gameScene, gameRoot, primaryStage, endGameScene, endgameRoot);
 
         primaryStage.show();
