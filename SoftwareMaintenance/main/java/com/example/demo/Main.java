@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,8 +16,9 @@ public class Main extends Application {
     static final int WIDTH = 900;
     static final int HEIGHT = 600;
     public Stage primaryStage;
+    private String username;
 
-    private static Color backgroundColor_Light = Color.rgb(238, 228, 218, 0.73);
+    private static Color backgroundColor_LIGHT = Color.rgb(238, 228, 218, 0.73);
     private static Color backgroundColor_DARK = Color.rgb(64, 64, 64);
 
     public int getWidth() {
@@ -32,32 +34,76 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("2048"); // Set title of the program to 2048
 
-        showMainMenu(); // Call method to display Main Menu when program is run
+        showMainMenuDark(primaryStage); // Call method to display Main Menu when program is run
+
     }
 
-    // Method to display Main Menu
-    private void showMainMenu() throws IOException {
+    // Method to display Main Menu Dark Theme
+    public void showMainMenuDark(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("MainMenu.fxml"));
-        AnchorPane mainMenu = loader.load();
-        Scene menu = new Scene(mainMenu);
-        primaryStage.setScene(menu);
+        loader.setLocation(Main.class.getResource("MainMenu_dark.fxml"));
+        AnchorPane mainMenuDark = loader.load();
+        Scene menuDark = new Scene(mainMenuDark);
+        primaryStage.setScene(menuDark);
+        primaryStage.show();
+    }
+
+    // Method to display Main Menu Light Theme
+    public void showMainMenuLight(Stage primaryStage) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("MainMenu_light.fxml"));
+        AnchorPane mainMenuLight = loader.load();
+        Scene menuLight = new Scene(mainMenuLight);
+        primaryStage.setScene(menuLight);
+        primaryStage.show();
+    }
+
+    // Method to display the different levels Dark Mode
+    public void chooseLevelDark(Stage primaryStage, String username) throws IOException {
+        this.username = username; // Store entered username
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("ChooseLevels_dark.fxml"));
+        AnchorPane levels = loader.load();
+        Scene level = new Scene(levels);
+        primaryStage.setScene(level);
+        primaryStage.show();
+    }
+    
+    // Method to display the different levels Light Mode
+    public void chooseLevelLight(Stage primaryStage, String username) throws IOException {
+        this.username = username; // Store entered username
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("ChooseLevels_light.fxml"));
+        AnchorPane levels = loader.load();
+        Scene level = new Scene(levels);
+        primaryStage.setScene(level);
         primaryStage.show();
     }
 
     // Method to start game
-    public void startGame(Stage primaryStage, int gridSize) {
-
-        Group endgameRoot = new Group();
-        Scene endGameScene = new Scene(endgameRoot, WIDTH, HEIGHT, backgroundColor_DARK);
-
-        Group gameRoot = new Group();
-        Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, backgroundColor_DARK);
-        primaryStage.setScene(gameScene);
-        GameScene game = new GameScene();
-        GameScene.setN(gridSize);
-        game.game(gameScene, gameRoot, primaryStage, endGameScene, endgameRoot);
-
+    public void startGame(Stage primaryStage, int gridSize, boolean darkMode) {
+        System.out.print(darkMode);
+        if(darkMode) {
+            Group gameRoot = new Group();
+            Group endgameRoot = new Group();
+            Scene endGameScene = new Scene(endgameRoot, WIDTH, HEIGHT, backgroundColor_DARK);
+            Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, backgroundColor_DARK);
+            primaryStage.setScene(gameScene);
+            GameScene game = new GameScene();
+            GameScene.setN(gridSize);
+            game.game(gameScene, gameRoot, primaryStage, endGameScene, endgameRoot, username);
+        } else {
+            Group gameRoot = new Group();
+            Group endgameRoot = new Group();
+            Scene endGameScene = new Scene(endgameRoot, WIDTH, HEIGHT, backgroundColor_LIGHT);
+            Scene gameScene = new Scene(gameRoot, WIDTH, HEIGHT, backgroundColor_LIGHT);
+            primaryStage.setScene(gameScene);
+            GameScene game = new GameScene();
+            GameScene.setN(gridSize);
+            game.game(gameScene, gameRoot, primaryStage, endGameScene, endgameRoot, username);
+        }
         primaryStage.show();
     }
 

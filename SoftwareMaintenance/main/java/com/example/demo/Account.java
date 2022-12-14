@@ -24,9 +24,7 @@ public class Account implements Comparable<Account> {
         return Long.compare(o.getScore(), score);
     }
 
-    public void addToScore(long score) {
-        this.score += score;
-    }
+    // Removed addToScore method
 
     public long getScore() { // Changed method from private to public
         return score;
@@ -36,14 +34,7 @@ public class Account implements Comparable<Account> {
         return userName;
     }
 
-    static Account accountExists(String userName){ // Changed method name from accountHaveBeenExist to accountExists
-        for(Account account : accounts){
-            if(account.getUserName().equals(userName)){
-                return account;
-            }
-        }
-        return null;
-    }
+    // Removed accountExists method
 
     static Account makeNewAccount(String userName){
         Account account = new Account(userName);

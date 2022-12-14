@@ -310,7 +310,7 @@ class GameScene extends Main{
     // ------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------
 
-    void game(Scene gameScene, Group root, Stage primaryStage, Scene endGameScene, Group endGameRoot) {
+    void game(Scene gameScene, Group root, Stage primaryStage, Scene endGameScene, Group endGameRoot, String username) {
         // Generate grid on GUI
         this.root = root;
         for (int i = 0; i < n; i++) {
@@ -375,7 +375,7 @@ class GameScene extends Main{
                     if (GameScene.this.canNotMove()) {
                         primaryStage.setScene(endGameScene);
 
-                        EndGame.getInstance().endGameShow(endGameRoot, primaryStage, score);
+                        EndGame.getInstance().endGameShow(endGameRoot, primaryStage, score, username);
                         root.getChildren().clear();
                         score = 0;
                     }

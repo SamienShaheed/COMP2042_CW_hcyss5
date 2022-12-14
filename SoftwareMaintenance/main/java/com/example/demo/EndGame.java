@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class EndGame extends Main{
     private static EndGame singleInstance = null;
-    private int [] topScores = new int[10];
+    private final int [] topScores = new int[10];
 
     public static EndGame getInstance(){
         if(singleInstance == null)
@@ -89,11 +89,15 @@ public class EndGame extends Main{
         }
     }
 
-    public void endGameShow(Group root, Stage primaryStage, long score) {
+    public void endGameShow(Group root, Stage primaryStage, long score, String username) {
          
         // Call function to save score to external file
         saveScore(score);
         getTopScores();
+
+        // Create an account with the username
+        Account.makeNewAccount(username);
+
         // --------------------------------------Text------------------------------------
         // Generate Text to Display on screen
         Text text = new Text("Game Over");
