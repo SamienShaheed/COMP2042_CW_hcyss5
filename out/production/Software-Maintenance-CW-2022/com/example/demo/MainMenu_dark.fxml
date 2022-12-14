@@ -14,7 +14,7 @@
          </font>
       </Text>
       <TextField fx:id="userName" alignment="CENTER" layoutX="224.0" layoutY="200.0" promptText="Enter Username" />
-      <Button layoutX="274.0" layoutY="247.0" mnemonicParsing="false" onMouseClicked="#chooseLevelScreen" text="Start" />
+      <Button fx:id="startButton_dark" layoutX="274.0" layoutY="247.0" mnemonicParsing="false" onMouseClicked="#chooseLevelScreen" text="Start" />
       <Button layoutX="273.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#quitGame" text="Quit" />
       <Text fx:id="errorMsg" fill="RED" layoutX="230.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
       <Button fx:id="button_Light" layoutX="257.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#lightMode" text="Light Mode" />

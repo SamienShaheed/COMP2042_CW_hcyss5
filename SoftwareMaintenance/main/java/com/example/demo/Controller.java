@@ -23,6 +23,8 @@ public class Controller extends Main {
     @FXML
     private Button button_Light;
     @FXML
+    private Button startButton_dark;
+    @FXML
     private Button light_4x4;
     @FXML
     private Button light_5x5;
@@ -32,7 +34,7 @@ public class Controller extends Main {
     @FXML
     void chooseLevelScreen(MouseEvent event) throws IOException {
         
-        if(event.getSource() == button_Dark) {
+        if(event.getSource() == startButton_dark) {
             if(!userName.getText().equals("")) { // Checks if username was entered
                 Stage currentStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
                 chooseLevelDark(currentStage, userName.getText()); // Call next Scene

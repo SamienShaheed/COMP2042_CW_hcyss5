@@ -89,7 +89,7 @@ public class EndGame extends Main{
         }
     }
 
-    public void endGameShow(Group root, Stage primaryStage, long score, String username) {
+    public void endGameShow(Group root, Stage primaryStage, long score, String username, boolean darkMode) {
          
         // Call function to save score to external file
         saveScore(score);
@@ -101,22 +101,29 @@ public class EndGame extends Main{
         // --------------------------------------Text------------------------------------
         // Generate Text to Display on screen
         Text text = new Text("Game Over");
-        text.setFill(Color.WHITE);
         text.relocate(236, 65);
         text.setFont(Font.font("Rockwell", 80));
         root.getChildren().add(text);
-
+        
         Text scoreText = new Text("Score");
-        scoreText.setFill(Color.WHITE);
         scoreText.relocate(200, 260);
         scoreText.setFont(Font.font("Rockwell", 60));
         root.getChildren().add(scoreText);
         
         Text currentScore = new Text(score + "");
-        currentScore.setFill(Color.WHITE);
         currentScore.relocate(200, 302);
         currentScore.setFont(Font.font("Rockwell", 50));
         root.getChildren().add(currentScore);
+        
+        if(darkMode) {
+            text.setFill(Color.WHITE);
+            currentScore.setFill(Color.WHITE);
+            scoreText.setFill(Color.WHITE);
+        } else {
+            text.setFill(Color.rgb(119, 110, 101));
+            currentScore.setFill(Color.rgb(119, 110, 101));
+            scoreText.setFill(Color.rgb(119, 110, 101));
+        }
         // ------------------------------------------------------------------------------ 
         
         // --------------------------------------Buttons---------------------------------

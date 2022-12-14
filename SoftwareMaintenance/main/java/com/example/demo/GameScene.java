@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -310,7 +311,7 @@ class GameScene extends Main{
     // ------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------
 
-    void game(Scene gameScene, Group root, Stage primaryStage, Scene endGameScene, Group endGameRoot, String username) {
+    void game(Scene gameScene, Group root, Stage primaryStage, Scene endGameScene, Group endGameRoot, String username, boolean darkMode) {
         // Generate grid on GUI
         this.root = root;
         for (int i = 0; i < n; i++) {
@@ -344,6 +345,14 @@ class GameScene extends Main{
         scoreText.setFont(Font.font(20));
         scoreText.setText("0");
 
+        if(darkMode) {
+            text.setFill(Color.WHITE);
+            scoreText.setFill(Color.WHITE);
+        } else {
+            text.setFill(Color.rgb(119, 110, 101));
+            scoreText.setFill(Color.rgb(119, 110, 101));
+        }
+
         // Add first 2 cells at the start of the game
         randomFillNumber();
         randomFillNumber();
@@ -375,7 +384,7 @@ class GameScene extends Main{
                     if (GameScene.this.canNotMove()) {
                         primaryStage.setScene(endGameScene);
 
-                        EndGame.getInstance().endGameShow(endGameRoot, primaryStage, score, username);
+                        EndGame.getInstance().endGameShow(endGameRoot, primaryStage, score, username, darkMode);
                         root.getChildren().clear();
                         score = 0;
                     }

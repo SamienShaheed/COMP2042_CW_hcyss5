@@ -84,7 +84,6 @@ public class Main extends Application {
 
     // Method to start game
     public void startGame(Stage primaryStage, int gridSize, boolean darkMode) {
-        System.out.print(darkMode);
         if(darkMode) {
             Group gameRoot = new Group();
             Group endgameRoot = new Group();
@@ -93,7 +92,7 @@ public class Main extends Application {
             primaryStage.setScene(gameScene);
             GameScene game = new GameScene();
             GameScene.setN(gridSize);
-            game.game(gameScene, gameRoot, primaryStage, endGameScene, endgameRoot, username);
+            game.game(gameScene, gameRoot, primaryStage, endGameScene, endgameRoot, username, darkMode);
         } else {
             Group gameRoot = new Group();
             Group endgameRoot = new Group();
@@ -102,8 +101,9 @@ public class Main extends Application {
             primaryStage.setScene(gameScene);
             GameScene game = new GameScene();
             GameScene.setN(gridSize);
-            game.game(gameScene, gameRoot, primaryStage, endGameScene, endgameRoot, username);
+            game.game(gameScene, gameRoot, primaryStage, endGameScene, endgameRoot, username, darkMode);
         }
+
         primaryStage.show();
     }
 
