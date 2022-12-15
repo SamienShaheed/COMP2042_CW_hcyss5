@@ -15,6 +15,7 @@ javadoc file in repository
 ## List of implemented features working properly <br/>
 * Light Mode and Dark Mode themes
 * Classic(4x4), Large(5x5) and Wide(6x6) Game Modes
+
 <br/>
 <br/>
 ## List of implemented features not working properly <br/>
