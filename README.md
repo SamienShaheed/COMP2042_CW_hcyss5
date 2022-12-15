@@ -35,7 +35,7 @@ javadoc file in repository
   * Renamed methods to better describe functions
   * Improved functionality of haveSameNumber method for general use
   * Renamed sumCellToNumbersToScore method to addToScore method
-  * addToScore method rewritten to properly count score
+  * addToScore method rewritten to properly count score after cells have been added
   * Text.relocate done by calculating screen width and height
   * Fixed bug where new tiles appear even if input wasn't valid
   * Fixed bug where score increases with any input  
