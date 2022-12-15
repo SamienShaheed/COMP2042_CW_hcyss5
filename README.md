@@ -26,10 +26,10 @@ javadoc file in repository
 
 ## List of Java classes modified
 * Main.java
-⋅⋅* Added a getter method for Width and Height variables
-⋅⋅* Broke down start method into various smaller methods
-⋅⋅* Added various methods to display fxml files
-⋅⋅* Handles dark mode and light mode themes
+..* Added a getter method for Width and Height variables
+..* Broke down start method into various smaller methods
+..* Added various methods to display fxml files
+..* Handles dark mode and light mode themes
 * GameScene.java
 * EndGame.java
 * Controller.java
