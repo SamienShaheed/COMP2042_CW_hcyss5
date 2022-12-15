@@ -25,12 +25,12 @@ javadoc file in repository
 * Leaderboard System - not implemented with player names, only with scores
 
 ## List of Java classes modified
-1. Main.java
+1.Main.java
   * Added a getter method for Width and Height variables
   * Broke down start method into various smaller methods
   * Added various methods to display fxml files
   * Handles dark mode and light mode themes
-* GameScene.java
-* EndGame.java
-* Controller.java
-* Cell.java
+2.GameScene.java
+3.EndGame.java
+4.Controller.java
+5.Cell.java
