@@ -6,7 +6,7 @@ ID: 20291244<br/>
 <br/>
 
 ## How to compile the code <br/>
-Open Software Maintanence folder as a project on IntelliJ. Add JavaFX libray and run Main.Java. <br/>
+Open Software Maintanence folder as a project on IntelliJ. Add JavaFX library and run Main.Java. <br/>
 <br/>
 <br/>
 
