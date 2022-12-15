@@ -12,25 +12,45 @@ import javafx.scene.Node;
 import java.io.IOException;
 
 public class Controller extends Main {
+    /**
+     * Variable to store the dimensions of the grid
+     */
     private int gridSize;
 
+    /**
+     * TextField variable to store user input
+     */
     @FXML
     private TextField userName;
+    /**
+     * Text variable to display validation message
+     */
     @FXML
     private Text errorMsg;
-    @FXML
-    private Button button_Dark;
-    @FXML
-    private Button button_Light;
+    /**
+     * Button variable to check if game started in dark mode
+     */
     @FXML
     private Button startButton_dark;
+    /**
+     * Button variable to check if 4x4 grid was selected
+     */
     @FXML
     private Button light_4x4;
+    /**
+     * Button variable to check if 5x5 grid was selected
+     */
     @FXML
     private Button light_5x5;
+    /**
+     * Button variable to check if 6x6 grid was selected
+     */
     @FXML
     private Button light_6x6;
-    
+
+    /**
+     * Method to call Level Selection Screen
+     */
     @FXML
     void chooseLevelScreen(MouseEvent event) throws IOException {
         
@@ -51,27 +71,38 @@ public class Controller extends Main {
                 errorMsg.setText("Please Enter Username!");
             }
         }
-        
     }
-    
+
+    /**
+     * Method to change theme to Light Mode
+     */
     @FXML
     void lightMode(MouseEvent event) throws IOException {
         Stage currentStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         showMainMenuLight(currentStage);
     }
 
+    /**
+     * Method to change theme to Dark Mode
+     */
     @FXML
     void darkMode(MouseEvent event) throws IOException {
         Stage currentStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         showMainMenuDark(currentStage);
     }
 
+    /**
+     * Method to Quit Game
+     */
     @FXML
     void quitGame(MouseEvent event) { // Method to quit game when button pressed
         Stage currentStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         currentStage.close();
     }
 
+    /**
+     * Method to start 4x4 game mode
+     */
     @FXML
     public void classicGameMode(ActionEvent event) throws IOException { // Method to handle start button in Main Menu
         boolean darkMode = event.getSource() == light_4x4;
@@ -80,6 +111,9 @@ public class Controller extends Main {
         startGame(currentStage, gridSize,!darkMode); // pass currentStage to startGame function in Main.java
     }
 
+    /**
+     * Method to start 5x5 game mode
+     */
     @FXML
     public void largeGameMode(ActionEvent event) {
         boolean darkMode = event.getSource() == light_5x5;
@@ -88,6 +122,9 @@ public class Controller extends Main {
         startGame(currentStage, gridSize,!darkMode); // pass currentStage to startGame function in Main.java
     }
 
+    /**
+     * Method to start 6x6 game mode
+     */
     @FXML
     public void wideGameMode(ActionEvent event) {
         boolean darkMode = event.getSource() == light_6x6;

@@ -21,6 +21,12 @@ public class Cell {
         return modify;
     }
 
+    /**
+     * Constructor method for tiles
+     * @param x X coordinate of the cell
+     * @param y Y coordinate of the cell
+     * @param scale Size of the cell
+     */
     Cell(double x, double y, double scale, Group root) {
         rectangle = new Rectangle();
         rectangle.setX(x);
@@ -37,6 +43,10 @@ public class Cell {
         this.textClass = textClass;
     }
 
+    /**
+     * Method to swap cells
+     * @param cell cell to be swapped with
+     */
     void changeCell(Cell cell) {
         TextMaker.changeTwoText(textClass, cell.getTextClass());
         root.getChildren().remove(cell.getTextClass());
@@ -53,6 +63,10 @@ public class Cell {
         cell.setColorByNumber(cell.getNumber());
     }
 
+    /**
+     * Adds a cell to it's adjacent cell
+     * @param cell stores the cell that needs to be added
+     */
     void adder(Cell cell) {
         cell.getTextClass().setText((cell.getNumber() + this.getNumber()) + "");
         setTextByNumber(cell);
@@ -62,6 +76,10 @@ public class Cell {
         setColorByNumber(getNumber());
     }
 
+    /**
+     * Method to assign cell color depending on value
+     * @param number stores the value of a cell
+     */
     void setColorByNumber(int number) {
         switch (number) {
             case 0 -> rectangle.setFill(Color.rgb(204, 192, 179, 0.5));
@@ -79,6 +97,9 @@ public class Cell {
         }
     }
 
+    /**
+     * Method to change text size of a cell depending on it's value
+     */
     void setTextByNumber(Cell cell) {
         if(numberOfDigits(cell.getNumber()) > 2) {
             cell.getTextClass().setFont(Font.font((3 * GameScene.getLENGTH()) / 9.0));
@@ -89,7 +110,11 @@ public class Cell {
         }
     }
 
-    // Method that returns the number of digits of the cell's value
+    /**
+     * Method that returns the number of digits of the cell's value
+     * @param number stores the value of a cell
+     * @return number of digits in the number
+     */
     int numberOfDigits(int number) {
         int count = 0;
         while(number != 0) {

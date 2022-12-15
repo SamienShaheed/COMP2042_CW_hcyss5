@@ -19,7 +19,14 @@ import java.io.IOException;
 
 public class EndGame extends Main{
     private static EndGame singleInstance = null;
+    /**
+     * Array to store scores read from external file
+     */
     private final int [] topScores = new int[10];
+    /**
+     * Variable to store number of scores to display on screen
+     */
+    private final int noOfTopScores = 5;
 
     public static EndGame getInstance(){
         if(singleInstance == null)
@@ -27,7 +34,10 @@ public class EndGame extends Main{
         return singleInstance;
     }
 
-    // Method to save score to external file
+    /**
+     * Method to save score to external file
+     * @param score variable to store score
+     */
     private void saveScore(long score) {
         // Try Catch Block to store scores in a Txt File
         try {
@@ -40,11 +50,14 @@ public class EndGame extends Main{
         }
     }
 
-    // Method to update External Text File 
+    /**
+     * Method to update external file with sorted scores
+     * @param scores variable to store score
+     */
     private void updateExternalFile(int scores[]) {
         try {
             FileWriter leaderBoardUpdate = new FileWriter("Leaderboard.txt");
-            for(int i = 0; i < 5; i++) { // Store array values into file
+            for(int i = 0; i < noOfTopScores; i++) { // Store array values into file
                 leaderBoardUpdate.append(Integer.toString(scores[i])).append("\n"); 
             }
             leaderBoardUpdate.close();
@@ -54,6 +67,9 @@ public class EndGame extends Main{
         }
     }
 
+    /**
+     * Method to read and sort scores into descending order
+     */
     private void getTopScores() {
         // Try Catch Block to retrieve scores from external text file
         try {
@@ -84,19 +100,23 @@ public class EndGame extends Main{
         updateExternalFile(topScores);
 
         // Debugging purposes
-        for(int i = 0; i < 10 ; i++) {
+        for(int i = 0; i < noOfTopScores ; i++) {
             System.out.print(topScores[i] + " ");
         }
     }
 
+    /**
+     * Driving method to run end game screen
+     * @param primaryStage main stage used for the game
+     * @param score variable to store score
+     * @param username variable to store username
+     * @param darkMode boolean to check if dark mode is enabled
+     */
     public void endGameShow(Group root, Stage primaryStage, long score, String username, boolean darkMode) {
          
         // Call function to save score to external file
         saveScore(score);
         getTopScores();
-
-        // Create an account with the username
-        Account.makeNewAccount(username);
 
         // --------------------------------------Text------------------------------------
         // Generate Text to Display on screen
@@ -111,7 +131,7 @@ public class EndGame extends Main{
         root.getChildren().add(scoreText);
         
         Text currentScore = new Text(score + "");
-        currentScore.relocate(200, 302);
+        currentScore.relocate(200, 310);
         currentScore.setFont(Font.font("Rockwell", 50));
         root.getChildren().add(currentScore);
         
@@ -126,6 +146,45 @@ public class EndGame extends Main{
         }
         // ------------------------------------------------------------------------------ 
         
+        // -------------------------------Leaderboard------------------------------------
+        Text leaderBoardText = new Text("Top Scores");
+        leaderBoardText.relocate(500, 140);
+        leaderBoardText.setFont(Font.font("Rockwell",  50));
+        root.getChildren().add(leaderBoardText);
+        if(darkMode) {
+            leaderBoardText.setFill(Color.WHITE);
+        } else {
+            leaderBoardText.setFill(Color.rgb(119, 110, 101));
+        }
+        
+        int leaderBoardYPos = 220;
+
+        for(int i=0 ; i < noOfTopScores ; i++) {
+            Text leaderBoard = new Text((i+1) + ". " + Integer.toString(topScores[i]));
+            leaderBoard.relocate(590, leaderBoardYPos);
+            leaderBoard.setFont(Font.font("Rockwell", 40));
+            root.getChildren().add(leaderBoard);
+
+            if(darkMode) {
+                if(score == topScores[i]) {
+                    leaderBoard.setFill(Color.rgb(237, 207, 114));
+                } else {
+                    leaderBoard.setFill(Color.WHITE);
+                }
+            } else {
+                if(score == topScores[i]) {
+                    leaderBoard.setFill(Color.rgb(242, 177, 121));
+                } else {
+                    leaderBoard.setFill(Color.rgb(119, 110, 101));
+                }
+            }
+
+            leaderBoardYPos += 80;
+        }
+
+        // ------------------------------------------------------------------------------
+
+
         // --------------------------------------Buttons---------------------------------
         // Generate Buttons to Display on Screen
         Button quitButton = new Button("Quit");
@@ -148,17 +207,22 @@ public class EndGame extends Main{
 
         Button playAgain = new Button("Play Again");
         playAgain.setPrefSize(100,30);
-        playAgain.setTextFill(Color.BLACK);
+        playAgain.setTextFill(Color.rgb(119, 110, 101));
         root.getChildren().add(playAgain);
         playAgain.relocate(326, 432);
         
         playAgain.setOnMouseClicked(event -> {
             try {
-                start(primaryStage);
+                if(darkMode) {
+                    showMainMenuDark(primaryStage);
+                } else {
+                    showMainMenuLight(primaryStage);
+                }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         });
         // ------------------------------------------------------------------------------
+
     }
 }

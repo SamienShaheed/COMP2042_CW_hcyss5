@@ -10,35 +10,52 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.Random;
 
-class GameScene extends Main{
-    
+public class GameScene extends Main{
+    /**
+     * Stores length for playable grid
+     */
     private static final int gridLength = 600;
+    /**
+     * Stores value for distance between each cell in the grid
+     */
     private final static int distanceBetweenCells = 10;
     private final TextMaker textMaker = TextMaker.getSingleInstance();
     private final Cell[][] cells = new Cell[n][n];
 
+    /**
+     * Stores score
+     */
     private long score = 0;
+    /**
+     * Stores dimensions of the grid
+     */
     private static int n = 8;
     private static double LENGTH;
     
     private Group root;
-    
+
+    /**
+     * Method to set grid size of the game
+     * @param number integer to set the grid size
+     */
     public static void setN(int number) {
         n = number;
         LENGTH = (gridLength - ((n + 1) * distanceBetweenCells)) / (double) n;
     }
 
-    public static int getN() {
-        return n;
-    }
-
+    /**
+     * Method to return length of grid
+     * @return returns length of grid
+     */
     static double getLENGTH() {
         return LENGTH;
     }
 
+    /**
+     * Method to randomly spawn a tile onto the grid
+     */
     private void randomFillNumber() { // Removed unused int turn parameter
 
         Cell[][] emptyCells = new Cell[n][n];
@@ -84,19 +101,28 @@ class GameScene extends Main{
         }
     }
 
+    /**
+     * Method to check if empty cells exist
+     * @return returns 1 if an empty cell exists, returns -1 if no empty cells
+     */
     // Check if empty cells exist on the grid
     private int  haveEmptyCell() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (cells[i][j].getNumber() == 0)
                     return 1;
-                if(cells[i][j].getNumber() == 2048)
-                    return 0;
             }
         }
         return -1;
     }
 
+    /**
+     * Method to calculate destination coordinates of a given cell
+     * @param i variable to store i coordinate of cell
+     * @param j variable to store j coordinate of cell
+     * @param direct variable to store direction of movement
+     * @return returns destination coordinate of cell (i,j)
+     */
     private int passDestination(int i, int j, char direct) {
         int coordinate;
 
@@ -153,6 +179,9 @@ class GameScene extends Main{
         return -1;
     }
 
+    /**
+     * Method to move all cells to the Left
+     */
     private void moveLeft() {
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < n; j++) {
@@ -164,6 +193,9 @@ class GameScene extends Main{
         }
     }
 
+    /**
+     * Method to move all cells to the right
+     */
     private void moveRight() {
         for (int i = 0; i < n; i++) {
             for (int j = n - 1; j >= 0; j--) {
@@ -175,6 +207,9 @@ class GameScene extends Main{
         }
     }
 
+    /**
+     * Method to move every cell up
+     */
     private void moveUp() {
         for (int j = 0; j < n; j++) {
             for (int i = 1; i < n; i++) {
@@ -186,6 +221,9 @@ class GameScene extends Main{
         } 
     }
 
+    /**
+     * Method to move every cell down
+     */
     private void moveDown() {
         for (int j = 0; j < n; j++) {
             for (int i = n - 1; i >= 0; i--) {
@@ -196,7 +234,15 @@ class GameScene extends Main{
             }
         }
     }
-    
+
+    /**
+     * Method to check if conditions for adding tiles Horizontally are true
+     * @param i variable to store i coordinate of cell
+     * @param j variable to store j coordinate of cell
+     * @param des variable to store destination coordinate of cell
+     * @param sign variable to check direction of movement
+     * @return returns true if conditions for adding tiles is true, false otherwise
+     */
     private boolean isValidDesH(int i, int j, int des, int sign) {
         if (des + sign < n && des + sign >= 0) {
             if (cells[i][des + sign].getNumber() == cells[i][j].getNumber() && !cells[i][des + sign].getModify()
@@ -207,6 +253,13 @@ class GameScene extends Main{
         return false;
     }
 
+    /**
+     * Method to move given cell horizontally
+     * @param i variable to store i coordinate of cell
+     * @param j variable to store j coordinate of cell
+     * @param des variable to store destination coordinate of cell
+     * @param sign variable to check direction of movement
+     */
     private void moveHorizontally(int i, int j, int des, int sign) {
         if (isValidDesH(i, j, des, sign)) {
             cells[i][j].adder(cells[i][des + sign]);
@@ -217,6 +270,14 @@ class GameScene extends Main{
         }
     }
 
+    /**
+     * Method to check if conditions for adding tiles Vertically are true
+     * @param i variable to store i coordinate of cell
+     * @param j variable to store j coordinate of cell
+     * @param des variable to store destination coordinate of cell
+     * @param sign variable to check direction of movement
+     * @return returns true if conditions for adding tiles is true, false otherwise
+     */
     private boolean isValidDesV(int i, int j, int des, int sign) {
         if (des + sign < n && des + sign >= 0)
             return cells[des + sign][j].getNumber() == cells[i][j].getNumber() && !cells[des + sign][j].getModify()
@@ -224,6 +285,13 @@ class GameScene extends Main{
         return false;
     }
 
+    /**
+     * Method to move given cell vertically
+     * @param i variable to store i coordinate of cell
+     * @param j variable to store j coordinate of cell
+     * @param des variable to store destination coordinate of cell
+     * @param sign variable to check direction of movement
+     */
     private void moveVertically(int i, int j, int des, int sign) {
         if (isValidDesV(i, j, des, sign)) {
             cells[i][j].adder(cells[des + sign][j]);
@@ -234,6 +302,12 @@ class GameScene extends Main{
         }
     }
 
+    /**
+     * Method to check if adjacent tiles are same
+     * @param i variable to store i coordinate of cell
+     * @param j variable to store j coordinate of cell
+     * @return returns true if adjacent tiles are same, false otherwise
+     */
     private boolean haveSameNumber(int i, int j) { // Changed method name from haveSameNumberNearly to haveSameNumber
         // Check if last cell
         if (i == n - 1 && j == n - 1) { 
@@ -258,6 +332,10 @@ class GameScene extends Main{
         return false;
     }
 
+    /**
+     * Method to check if any valid moves exist
+     * @return returns true if no valid moves remaining, false otherwise
+     */
     // Check if no more valid moves remaining
     private boolean canNotMove() {
         for (int i = 0; i < n; i++) {
@@ -270,48 +348,29 @@ class GameScene extends Main{
         return true;
     }
 
+    /**
+     * Method to keep track of score
+     * @param i variable to store i coordinate of cell
+     * @param j variable to store j coordinate of cell
+     */
     // Changed method name from sumCellNumbersToScore to addToScore
     private void addToScore(int i, int j) { // Take in the coordinates of a cell as parameter
         score += cells[i][j].getNumber(); // Add the value of the cell at given coordinate to score
     }
 
-    // -------------------------------------DEBUG FUNCTION---------------------------------------
-    // ------------------------------------------------------------------------------------------
-    private void debug() { 
-
-        // Prints grid position onto console
-        for(int i=0 ; i < n ; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print(cells[i][j].getNumber() + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-
-        // Prints coordinates of each cell
-        for(int i=0 ; i < n ; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print("(" + i + ",");
-                System.out.print(j + ") ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-
+    /**
+     * Driving method to run the game scene
+     * @param gameScene Scene to store elements in the game screen
+     * @param primaryStage main stage used for the game
+     * @param endGameScene Scene to store elements in the end game screen
+     * @param username variable to store username
+     * @param darkMode boolean to check if dark mode is enabled
+     * @param gridSize variable to check selected grid size
+     */
+    void game(Scene gameScene, Group root, Stage primaryStage, Scene endGameScene, Group endGameRoot, String username, boolean darkMode, int gridSize) {
         
-        // Prints whatever for each cell
-        for(int i=0 ; i < n ; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print(n);
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-    // ------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------
+        setN(gridSize);
 
-    void game(Scene gameScene, Group root, Stage primaryStage, Scene endGameScene, Group endGameRoot, String username, boolean darkMode) {
         // Generate grid on GUI
         this.root = root;
         for (int i = 0; i < n; i++) {
@@ -320,8 +379,6 @@ class GameScene extends Main{
                         (i) * LENGTH + (i + 1) * distanceBetweenCells, LENGTH, root);
             }
         }
-
-        //debug();
 
         // Store width and height of screen
         int screenWidth = getWidth();
