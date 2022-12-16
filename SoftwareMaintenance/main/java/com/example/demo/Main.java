@@ -6,12 +6,15 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 // Removed unused imports
 
+/**
+ * Main Class is the Driving Class for the game
+ * @author Samien Shaheed-modified
+ */
 public class Main extends Application {
     /**
      * Stores width of the game screen
@@ -27,21 +30,25 @@ public class Main extends Application {
     public Stage primaryStage;
     /**
      * Stores username input by player
+     * @author Samien Shaheed
      */
     private String username;
 
     /**
      * Stores Background Color for Light Mode
+     * @author Samien Shaheed
      */
     private static Color backgroundColor_LIGHT = Color.rgb(238, 228, 218, 0.73);
     /**
      * Stores Background Color for Dark Mode
+     * @author Samien Shaheed
      */
     private static Color backgroundColor_DARK = Color.rgb(64, 64, 64);
 
     /**
      * returns width of the Stage
      * @return returns width of the Stage
+     * @author Samien Shaheed
      */
     public int getWidth() {
         return WIDTH;
@@ -50,11 +57,18 @@ public class Main extends Application {
     /**
      * returns height of the stage
      * @return returns height of the stage
+     * @author Samien Shaheed
      */
     public int getHeight() {
         return HEIGHT;
     }
 
+    /**
+     * Method to start the program
+     * @param primaryStage main stage used for the game
+     * @throws Exception
+     * @author Samien Shaheed-modified
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
@@ -68,6 +82,7 @@ public class Main extends Application {
      * Method to display Main Menu Dark Theme fxml file
      * @param primaryStage main stage used for the game
      * @throws IOException
+     * @author Samien Shaheed
      */
     public void showMainMenuDark(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -82,6 +97,7 @@ public class Main extends Application {
      * Method to display Main Menu Light Theme fxml file
      * @param primaryStage main stage used for the game
      * @throws IOException
+     * @author Samien Shaheed
      */
     public void showMainMenuLight(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -97,6 +113,7 @@ public class Main extends Application {
      * @param primaryStage main stage used for the game
      * @param username variable to store the username input by player
      * @throws IOException
+     * @author Samien Shaheed
      */
     public void chooseLevelDark(Stage primaryStage, String username) throws IOException {
         this.username = username; // Store entered username
@@ -114,6 +131,7 @@ public class Main extends Application {
      * @param primaryStage main stage used for the game
      * @param username variable to store the username input by player
      * @throws IOException
+     * @author Samien Shaheed
      */
     public void chooseLevelLight(Stage primaryStage, String username) throws IOException {
         this.username = username; // Store entered username
@@ -131,6 +149,7 @@ public class Main extends Application {
      * @param primaryStage main stage used for the game
      * @param gridSize variable to store the level chosen
      * @param darkMode boolean to check if dark mode is enabled
+     * @author Samien Shaheed
      */
     public void startGame(Stage primaryStage, int gridSize, boolean darkMode) {
         if(darkMode) {

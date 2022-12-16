@@ -2,6 +2,9 @@ package com.example.demo;
 
 import java.util.ArrayList;
 
+/**
+ * Handles accounts
+ */
 public class Account implements Comparable<Account> {
     private long score = 0;
     private String userName ;

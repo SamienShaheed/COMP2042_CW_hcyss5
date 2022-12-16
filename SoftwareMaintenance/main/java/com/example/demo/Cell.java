@@ -7,6 +7,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * Handles the generation, formatting, logic of individual tiles
+ * @author Samien Shaheed-modified
+ */
 public class Cell {
     private Rectangle rectangle;
     private Group root;
@@ -26,6 +30,7 @@ public class Cell {
      * @param x X coordinate of the cell
      * @param y Y coordinate of the cell
      * @param scale Size of the cell
+     * @author Samien Shaheed-modified
      */
     Cell(double x, double y, double scale, Group root) {
         rectangle = new Rectangle();
@@ -79,6 +84,7 @@ public class Cell {
     /**
      * Method to assign cell color depending on value
      * @param number stores the value of a cell
+     * @author Samien Shaheed-modified
      */
     void setColorByNumber(int number) {
         switch (number) {
@@ -99,6 +105,7 @@ public class Cell {
 
     /**
      * Method to change text size of a cell depending on it's value
+     * @author Samien Shaheed-modified
      */
     void setTextByNumber(Cell cell) {
         if(numberOfDigits(cell.getNumber()) > 2) {
@@ -114,6 +121,7 @@ public class Cell {
      * Method that returns the number of digits of the cell's value
      * @param number stores the value of a cell
      * @return number of digits in the number
+     * @author Samien Shaheed
      */
     int numberOfDigits(int number) {
         int count = 0;

@@ -11,45 +11,57 @@ import javafx.scene.Node;
 
 import java.io.IOException;
 
+/**
+ * Controller class for all fxml files
+ * @author Samien Shaheed-modified
+ */
 public class Controller extends Main {
     /**
      * Variable to store the dimensions of the grid
+     * @author Samien Shaheed
      */
     private int gridSize;
 
     /**
      * TextField variable to store user input
+     * @author Samien Shaheed
      */
     @FXML
     private TextField userName;
     /**
      * Text variable to display validation message
+     * @author Samien Shaheed
      */
     @FXML
     private Text errorMsg;
     /**
      * Button variable to check if game started in dark mode
+     * @author Samien Shaheed
      */
     @FXML
     private Button startButton_dark;
     /**
      * Button variable to check if 4x4 grid was selected
+     * @author Samien Shaheed
      */
     @FXML
     private Button light_4x4;
     /**
      * Button variable to check if 5x5 grid was selected
+     * @author Samien Shaheed
      */
     @FXML
     private Button light_5x5;
     /**
      * Button variable to check if 6x6 grid was selected
+     * @author Samien Shaheed
      */
     @FXML
     private Button light_6x6;
 
     /**
      * Method to call Level Selection Screen
+     * @author Samien Shaheed
      */
     @FXML
     void chooseLevelScreen(MouseEvent event) throws IOException {
@@ -75,6 +87,7 @@ public class Controller extends Main {
 
     /**
      * Method to change theme to Light Mode
+     * @author Samien Shaheed
      */
     @FXML
     void lightMode(MouseEvent event) throws IOException {
@@ -84,6 +97,7 @@ public class Controller extends Main {
 
     /**
      * Method to change theme to Dark Mode
+     * @author Samien Shaheed
      */
     @FXML
     void darkMode(MouseEvent event) throws IOException {
@@ -93,6 +107,7 @@ public class Controller extends Main {
 
     /**
      * Method to Quit Game
+     * @author Samien Shaheed
      */
     @FXML
     void quitGame(MouseEvent event) { // Method to quit game when button pressed
@@ -102,6 +117,7 @@ public class Controller extends Main {
 
     /**
      * Method to start 4x4 game mode
+     * @author Samien Shaheed
      */
     @FXML
     public void classicGameMode(ActionEvent event) throws IOException { // Method to handle start button in Main Menu
@@ -113,6 +129,7 @@ public class Controller extends Main {
 
     /**
      * Method to start 5x5 game mode
+     * @author Samien Shaheed
      */
     @FXML
     public void largeGameMode(ActionEvent event) {
@@ -124,6 +141,7 @@ public class Controller extends Main {
 
     /**
      * Method to start 6x6 game mode
+     * @author Samien Shaheed
      */
     @FXML
     public void wideGameMode(ActionEvent event) {

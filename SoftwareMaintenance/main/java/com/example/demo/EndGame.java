@@ -17,14 +17,20 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Handles Game Over Screen and Logic
+ * @author Samien Shaheed-modified
+ */
 public class EndGame extends Main{
     private static EndGame singleInstance = null;
     /**
      * Array to store scores read from external file
+     * @author Samien Shaheed
      */
     private final int [] topScores = new int[10];
     /**
      * Variable to store number of scores to display on screen
+     * @author Samien Shaheed
      */
     private final int noOfTopScores = 5;
 
@@ -37,6 +43,7 @@ public class EndGame extends Main{
     /**
      * Method to save score to external file
      * @param score variable to store score
+     * @author Samien Shaheed
      */
     private void saveScore(long score) {
         // Try Catch Block to store scores in a Txt File
@@ -53,6 +60,7 @@ public class EndGame extends Main{
     /**
      * Method to update external file with sorted scores
      * @param scores variable to store score
+     * @author Samien Shaheed
      */
     private void updateExternalFile(int scores[]) {
         try {
@@ -69,6 +77,7 @@ public class EndGame extends Main{
 
     /**
      * Method to read and sort scores into descending order
+     * @author Samien Shaheed-modified
      */
     private void getTopScores() {
         // Try Catch Block to retrieve scores from external text file
@@ -111,6 +120,7 @@ public class EndGame extends Main{
      * @param score variable to store score
      * @param username variable to store username
      * @param darkMode boolean to check if dark mode is enabled
+     * @author Samien Shaheed-modified
      */
     public void endGameShow(Group root, Stage primaryStage, long score, String username, boolean darkMode) {
          

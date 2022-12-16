@@ -12,9 +12,14 @@ import javafx.stage.Stage;
 
 import java.util.Random;
 
+/**
+ * Handles actual gameplay logic
+ * @author Samien Shaheed-modified
+ */
 public class GameScene extends Main{
     /**
      * Stores length for playable grid
+     * @author Samien Shaheed-modified
      */
     private static final int gridLength = 600;
     /**
@@ -122,6 +127,7 @@ public class GameScene extends Main{
      * @param j variable to store j coordinate of cell
      * @param direct variable to store direction of movement
      * @return returns destination coordinate of cell (i,j)
+     * @author Samien Shaheed-modified
      */
     private int passDestination(int i, int j, char direct) {
         int coordinate;
@@ -307,6 +313,7 @@ public class GameScene extends Main{
      * @param i variable to store i coordinate of cell
      * @param j variable to store j coordinate of cell
      * @return returns true if adjacent tiles are same, false otherwise
+     * @author Samien Shaheed-modified
      */
     private boolean haveSameNumber(int i, int j) { // Changed method name from haveSameNumberNearly to haveSameNumber
         // Check if last cell
@@ -352,6 +359,7 @@ public class GameScene extends Main{
      * Method to keep track of score
      * @param i variable to store i coordinate of cell
      * @param j variable to store j coordinate of cell
+     * @author Samien Shaheed-modified
      */
     // Changed method name from sumCellNumbersToScore to addToScore
     private void addToScore(int i, int j) { // Take in the coordinates of a cell as parameter
@@ -366,6 +374,7 @@ public class GameScene extends Main{
      * @param username variable to store username
      * @param darkMode boolean to check if dark mode is enabled
      * @param gridSize variable to check selected grid size
+     * @author Samien Shaheed-modified
      */
     void game(Scene gameScene, Group root, Stage primaryStage, Scene endGameScene, Group endGameRoot, String username, boolean darkMode, int gridSize) {
         
